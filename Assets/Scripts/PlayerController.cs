@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public bool canTurnRight = true;
-    public float turnSpeed = 1f;
+    public float turnSpeed = 1.5f;
     private float turnAmount = 0f;
     public float speed = 0.5f;
     private float throttleAmount = 0f;
@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (turnAmount != 0) {
             transform.Rotate(0f, turnSpeed * turnAmount, 0f);
