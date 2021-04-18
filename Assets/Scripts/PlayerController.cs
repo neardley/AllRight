@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private float turnAmount = 0f;
     public float speed = 0.5f;
     private float throttleAmount = 0f;
+    public bool flip = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -91,7 +92,7 @@ public class PlayerController : MonoBehaviour
         canTurnRight = !canTurnRight;
         HandleTurnChange(turnAmount);
         Debug.Log("Flipped! Can only turn " + (canTurnRight ? "right." : "left."));
-        // TODO flip player
+        Flip();
     }
 
     void OnThrottle(InputValue input)
@@ -121,5 +122,19 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Toggle Menu");
         // TODO toggle menu
+    }
+
+    public void Flip()
+    {
+        flip = !flip;
+        Quaternion current = this.gameObject.transform.rotation;
+        if (flip)
+        {
+            this.gameObject.transform.rotation = new Quaternion(180, current.y, current.z, current.w);
+        }
+        else
+        {
+            this.gameObject.transform.rotation = new Quaternion(0, current.y, current.z, current.w);
+        }
     }
 }
