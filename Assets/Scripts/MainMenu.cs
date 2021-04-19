@@ -6,9 +6,24 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 
-// Menu.cs
+/* Menu.cs
 // Contains callbacks for menu buttons and text boxes
 // Also enables/disables menu elements as needed
+// Requiered UI elements to be added in unity editor:
+//      Buttons:
+            Join Room
+            Create Room
+            Leave Room
+            Start Game
+            Quick Start
+
+        TextMeshPro Input feilds:
+            Player Name
+            Room Name
+
+        TextMeshPro Text:
+            PlayerList display
+*/
 
 
 public class MainMenu : MonoBehaviourPunCallbacks
