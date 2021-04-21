@@ -145,14 +145,14 @@ public class PlayerController : MonoBehaviour
     public void Flip()
     {
         flip = !flip;
-        Quaternion current = this.gameObject.transform.rotation;
-        if (flip)
-        {
-            this.gameObject.transform.rotation = new Quaternion(180, current.y, current.z, current.w);
-        }
-        else
-        {
-            this.gameObject.transform.rotation = new Quaternion(0, current.y, current.z, current.w);
-        }
+        //Quaternion current = this.gameObject.transform.rotation;
+        //if (flip)
+        //{
+        //    this.gameObject.transform.rotation = new Quaternion(180, current.y, current.z, current.w);
+        //}
+        //else
+        //{
+        //    this.gameObject.transform.rotation = new Quaternion(0, current.y, current.z, current.w);
+        //}
     }
 }
