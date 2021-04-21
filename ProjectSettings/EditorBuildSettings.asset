@@ -5,25 +5,25 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/DemoHub-Scene.unity
     guid: 7dfd47dc8b9484dd79d8636d8603a9e5
-  - enabled: 1
+  - enabled: 0
     path: Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scenes/DemoAsteroids-GameScene.unity
     guid: 98efc37d6307844488eb3e4247dde7e9
-  - enabled: 1
+  - enabled: 0
     path: Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scenes/DemoAsteroids-LobbyScene.unity
     guid: c8a9d1312a49dc8488a9b32d83d659c7
-  - enabled: 1
+  - enabled: 0
     path: Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Procedural-Scene.unity
     guid: e1fad393017993c4893877b645062417
-  - enabled: 1
+  - enabled: 0
     path: Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/SlotCar-Scene.unity
     guid: 711b38c07f2cf904f81b3422c67f1825
-  - enabled: 1
+  - enabled: 0
     path: Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scenes/PunBasics-Launcher.unity
     guid: bff77b01b50254edbb6edeeaba5ae8b3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scenes/PunBasics-Room
       for 1.unity
     guid: 9b8561c6e396849a5ba48c3eb9524049
