@@ -8,9 +8,14 @@ public class PlayerController : MonoBehaviour
     public bool canTurnRight = true;
     public float turnSpeed = 1.5f;
     private float turnAmount = 0f;
-    public float speed = 0.5f;
+    public float speed = 200f;
     private float throttleAmount = 0f;
     public bool flip = false;
+    public float maxTurn = 20f;
+
+    public List<WheelCollider> throttleWheels;
+    public List<WheelCollider> steeringWheels;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,12 +25,31 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (turnAmount != 0) {
+
+        //if (throttleAmount != 0)
+        //{
+        //    transform.position += transform.forward * speed * throttleAmount;
+        //}
+
+        if (throttleAmount != 0)
+        {
+            foreach (WheelCollider wheel in throttleWheels)
+            {
+                wheel.motorTorque = speed * Time.deltaTime * throttleAmount;
+            }
+        }
+        if (turnAmount != 0)
+        {
             transform.Rotate(0f, turnSpeed * turnAmount, 0f);
         }
-        if (throttleAmount != 0) {
-            transform.position += transform.forward * speed * throttleAmount;
-        }
+
+        //if (turnAmount != 0)
+        //{
+        //    foreach (WheelCollider wheel in steeringWheels)
+        //    {
+        //        wheel.steerAngle = turnSpeed * maxTurn * turnAmount;
+        //    }
+        //}
     }
 
     void HandleTurnChange(float turn) {
@@ -35,7 +59,6 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log("Turn Right");
                 turnAmount = turn;
-                // TODO turn right
             }
             else
             {
@@ -50,7 +73,6 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log("Turn Left");
                 turnAmount = turn;
-                // TODO turn left
             }
             else
             {
@@ -63,7 +85,6 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Stop Turn/Block");
             turnAmount = 0f;
-            // TODO don't turn or block
         }
     }
 
@@ -102,19 +123,16 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Accelerate");
             throttleAmount = throttle;
-            // TODO accelerate
         }
         else if (throttle < 0)
         {
             Debug.Log("Brake");
             throttleAmount = throttle;
-            // TODO brake
         }
         else
         {
             Debug.Log("Coast");
             throttleAmount = 0f;
-            // TODO Coast
         }
     }
 
