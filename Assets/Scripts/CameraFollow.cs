@@ -3,8 +3,9 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     public Transform target;
-    public float height = 2;
-    public float distance = 2;
+    public float offsetTargetY = 3f;
+    public float height = 4;
+    public float distance = 10;
     public float smoothSpeed = 40;
     public float rotationSmoothSpeed = 40;
 
@@ -17,7 +18,7 @@ public class CameraFollow : MonoBehaviour
         );
         transform.rotation = Quaternion.Slerp(
             transform.rotation,
-            Quaternion.LookRotation(target.position - transform.position + (Vector3.up * 1.5f), Vector3.up),
+            Quaternion.LookRotation(target.position - transform.position + (Vector3.up * offsetTargetY), Vector3.up),
             rotationSmoothSpeed * Time.deltaTime
         );
     }
