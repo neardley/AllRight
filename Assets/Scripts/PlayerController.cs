@@ -26,18 +26,18 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
 
-        //if (throttleAmount != 0)
-        //{
-        //    transform.position += transform.forward * speed * throttleAmount;
-        //}
-
         if (throttleAmount != 0)
         {
-            foreach (WheelCollider wheel in throttleWheels)
-            {
-                wheel.motorTorque = speed * Time.deltaTime * throttleAmount;
-            }
+            transform.position += transform.forward * speed * throttleAmount;
         }
+
+        //if (throttleAmount != 0)
+        //{
+        //    foreach (WheelCollider wheel in throttleWheels)
+        //    {
+        //        wheel.motorTorque = speed * Time.deltaTime * throttleAmount;
+        //    }
+        //}
         if (turnAmount != 0)
         {
             transform.Rotate(0f, turnSpeed * turnAmount, 0f);
