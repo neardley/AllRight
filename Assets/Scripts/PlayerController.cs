@@ -15,11 +15,12 @@ public class PlayerController : MonoBehaviour
 
     public List<WheelCollider> throttleWheels;
     public List<WheelCollider> steeringWheels;
+    private Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        rb = gameObject.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -28,16 +29,18 @@ public class PlayerController : MonoBehaviour
 
         if (throttleAmount != 0)
         {
-            transform.position += transform.forward * speed * throttleAmount;
+            //transform.position += transform.forward * speed * throttleAmount * -1;
+            rb.AddForce(transform.forward * speed * throttleAmount * -1);
         }
 
         //if (throttleAmount != 0)
         //{
         //    foreach (WheelCollider wheel in throttleWheels)
         //    {
-        //        wheel.motorTorque = speed * Time.deltaTime * throttleAmount;
+        //        wheel.motorTorque += speed * Time.deltaTime * throttleAmount * -1;
         //    }
         //}
+
         if (turnAmount != 0)
         {
             transform.Rotate(0f, turnSpeed * turnAmount, 0f);
@@ -145,14 +148,17 @@ public class PlayerController : MonoBehaviour
     public void Flip()
     {
         flip = !flip;
-        //Quaternion current = this.gameObject.transform.rotation;
+        //Quaternion currentRot = this.gameObject.transform.rotation;
+        //Vector3 currentPos = this.gameObject.transform.position;
         //if (flip)
         //{
-        //    this.gameObject.transform.rotation = new Quaternion(180, current.y, current.z, current.w);
+        //    this.gameObject.transform.rotation = new Quaternion(180, currentRot.y, currentRot.z, currentRot.w);
+        //    //this.gameObject.transform.position = new Vector3(currentPos.x, 2.6f, currentPos.z);
         //}
         //else
         //{
-        //    this.gameObject.transform.rotation = new Quaternion(0, current.y, current.z, current.w);
+        //    this.gameObject.transform.rotation = new Quaternion(0, currentRot.y, currentRot.z, currentRot.w);
+        //    //this.gameObject.transform.position = new Vector3(currentPos.x, 0f, currentPos.z);
         //}
     }
 }
