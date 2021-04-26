@@ -1950,7 +1950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minimapScale: 0.1
-  player: {fileID: 0}
+  player: {fileID: 639633844}
   otherPlayers: []
   playerMarkerPrefab: {fileID: 5824987977408752588, guid: ca8fb725fdecd0d47b1e09cce0123e19, type: 3}
   otherPlayerMarkerPrefab: {fileID: 5322269501275259355, guid: 28d8d9c905cadd1428633367ef0979c8, type: 3}
