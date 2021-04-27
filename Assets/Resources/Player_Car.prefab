@@ -723,9 +723,10 @@ GameObject:
   - component: {fileID: 3589740726464247748}
   - component: {fileID: 5387585677327521497}
   - component: {fileID: 7979430280251023084}
+  - component: {fileID: -8915863931104387446}
   m_Layer: 0
   m_Name: Player_Car
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -820,6 +821,8 @@ MonoBehaviour:
   steeringWheels:
   - {fileID: 3589740726726274833}
   - {fileID: 3589740724850735245}
+  id: 0
+  photonView: {fileID: -8915863931104387446}
 --- !u!114 &7979430280251023084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -850,6 +853,28 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &-8915863931104387446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4400082781703733369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &4503595079651024710
 GameObject:
   m_ObjectHideFlags: 0
