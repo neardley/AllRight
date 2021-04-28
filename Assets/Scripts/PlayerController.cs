@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Photon.Pun;
+using Photon.Realtime;
+
+
+/// <summary>
+/// TODO: add photon view checks
+/// </summary>
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,6 +24,23 @@ public class PlayerController : MonoBehaviour
     public List<WheelCollider> steeringWheels;
     private Rigidbody rb;
 
+    public int id;
+    public PhotonView photonView;
+    public Player photonPlayer;
+
+
+    [PunRPC]
+    public void Initialize(Player player)
+    {
+        photonPlayer = player;
+        id = player.ActorNumber;
+
+        PlayerManager.instance.players[id - 1] = this;
+
+        if (!photonView.IsMine)
+            rb.isKinematic = true;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,33 +50,36 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
-        if (throttleAmount != 0)
+        if (photonView.IsMine)
         {
-            //transform.position += transform.forward * speed * throttleAmount * -1;
-            rb.AddForce(transform.forward * speed * throttleAmount * -1);
+
+            if (throttleAmount != 0)
+            {
+                //transform.position += transform.forward * speed * throttleAmount * -1;
+                rb.AddForce(transform.forward * speed * throttleAmount * -1);
+            }
+
+            //if (throttleAmount != 0)
+            //{
+            //    foreach (WheelCollider wheel in throttleWheels)
+            //    {
+            //        wheel.motorTorque += speed * Time.deltaTime * throttleAmount * -1;
+            //    }
+            //}
+
+            if (turnAmount != 0)
+            {
+                transform.Rotate(0f, turnSpeed * turnAmount, 0f);
+            }
+
+            //if (turnAmount != 0)
+            //{
+            //    foreach (WheelCollider wheel in steeringWheels)
+            //    {
+            //        wheel.steerAngle = turnSpeed * maxTurn * turnAmount;
+            //    }
+            //}
         }
-
-        //if (throttleAmount != 0)
-        //{
-        //    foreach (WheelCollider wheel in throttleWheels)
-        //    {
-        //        wheel.motorTorque += speed * Time.deltaTime * throttleAmount * -1;
-        //    }
-        //}
-
-        if (turnAmount != 0)
-        {
-            transform.Rotate(0f, turnSpeed * turnAmount, 0f);
-        }
-
-        //if (turnAmount != 0)
-        //{
-        //    foreach (WheelCollider wheel in steeringWheels)
-        //    {
-        //        wheel.steerAngle = turnSpeed * maxTurn * turnAmount;
-        //    }
-        //}
     }
 
     void HandleTurnChange(float turn) {
