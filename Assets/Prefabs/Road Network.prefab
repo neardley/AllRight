@@ -9507,22 +9507,20 @@ MonoBehaviour:
   osmTerrainBottomLon: 0
   osmTerrainLeftLat: 0
   osmTerrainRightLat: 0
-  terrainMinIndent: 2.9296875
+  terrainMinIndent: 0
   minIndent: 3
   minSurrounding: 3
   maxIndentSurrounding: 50
   terrainY: 0
-  terrainDetailSplatX: 0.48828125
-  terrainDetailSplatY: 0.48828125
-  detailOffsetVec: {x: 0.48828125, y: 0, z: 0.48828125}
+  terrainDetailSplatX: 50
+  terrainDetailSplatY: 50
+  detailOffsetVec: {x: 50, y: 0, z: 50}
   raise: 0
   baseVector: {x: 0, y: 0, z: 0}
   mirrorCrossings: 1
   terrainNames:
   - All Terrains
-  - Terrain
   terrainObjects:
-  - {fileID: 0}
   - {fileID: 0}
   terrainSplatTextures:
   - Splat 1 - Grass ER
