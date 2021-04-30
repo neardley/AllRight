@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Photon.Pun;
+using Photon.Realtime;
+
+
+/// <summary>
+/// TODO: add photon view checks
+/// </summary>
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,41 +22,64 @@ public class PlayerController : MonoBehaviour
 
     public List<WheelCollider> throttleWheels;
     public List<WheelCollider> steeringWheels;
+    private Rigidbody rb;
+
+    public int id;
+    public PhotonView photonView;
+    public Player photonPlayer;
+
+
+    [PunRPC]
+    public void Initialize(Player player)
+    {
+        photonPlayer = player;
+        id = player.ActorNumber;
+
+        PlayerManager.instance.players[id - 1] = this;
+
+        if (!photonView.IsMine)
+            rb.isKinematic = true;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        rb = gameObject.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-
-        //if (throttleAmount != 0)
-        //{
-        //    transform.position += transform.forward * speed * throttleAmount;
-        //}
-
-        if (throttleAmount != 0)
+        if (photonView.IsMine)
         {
-            foreach (WheelCollider wheel in throttleWheels)
+
+            if (throttleAmount != 0)
             {
-                wheel.motorTorque = speed * Time.deltaTime * throttleAmount;
+                //transform.position += transform.forward * speed * throttleAmount * -1;
+                rb.AddForce(transform.forward * speed * throttleAmount * -1);
             }
-        }
-        if (turnAmount != 0)
-        {
-            transform.Rotate(0f, turnSpeed * turnAmount, 0f);
-        }
 
-        //if (turnAmount != 0)
-        //{
-        //    foreach (WheelCollider wheel in steeringWheels)
-        //    {
-        //        wheel.steerAngle = turnSpeed * maxTurn * turnAmount;
-        //    }
-        //}
+            //if (throttleAmount != 0)
+            //{
+            //    foreach (WheelCollider wheel in throttleWheels)
+            //    {
+            //        wheel.motorTorque += speed * Time.deltaTime * throttleAmount * -1;
+            //    }
+            //}
+
+            if (turnAmount != 0)
+            {
+                transform.Rotate(0f, turnSpeed * turnAmount, 0f);
+            }
+
+            //if (turnAmount != 0)
+            //{
+            //    foreach (WheelCollider wheel in steeringWheels)
+            //    {
+            //        wheel.steerAngle = turnSpeed * maxTurn * turnAmount;
+            //    }
+            //}
+        }
     }
 
     void HandleTurnChange(float turn) {
@@ -145,14 +175,17 @@ public class PlayerController : MonoBehaviour
     public void Flip()
     {
         flip = !flip;
-        //Quaternion current = this.gameObject.transform.rotation;
+        //Quaternion currentRot = this.gameObject.transform.rotation;
+        //Vector3 currentPos = this.gameObject.transform.position;
         //if (flip)
         //{
-        //    this.gameObject.transform.rotation = new Quaternion(180, current.y, current.z, current.w);
+        //    this.gameObject.transform.rotation = new Quaternion(180, currentRot.y, currentRot.z, currentRot.w);
+        //    //this.gameObject.transform.position = new Vector3(currentPos.x, 2.6f, currentPos.z);
         //}
         //else
         //{
-        //    this.gameObject.transform.rotation = new Quaternion(0, current.y, current.z, current.w);
+        //    this.gameObject.transform.rotation = new Quaternion(0, currentRot.y, currentRot.z, currentRot.w);
+        //    //this.gameObject.transform.position = new Vector3(currentPos.x, 0f, currentPos.z);
         //}
     }
 }
