@@ -142,8 +142,8 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
     public void UpdateRoomUI()
     {
         SetDisplayTargets();
-        playerListText.text = "Room: " + PhotonNetwork.CurrentRoom.Name + "\n";
-        playerListText.text += "Ready (" + readyCount + "/" + PhotonNetwork.CurrentRoom.PlayerCount + ")";
+        playerListText.text = "Room:\n" + PhotonNetwork.CurrentRoom.Name + "\n\n";
+        playerListText.text += "Ready: (" + readyCount + "/" + PhotonNetwork.CurrentRoom.PlayerCount + ")";
 
         /*foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
         {

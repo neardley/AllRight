@@ -21,7 +21,7 @@ public class PlayerSetupPanel : MonoBehaviourPunCallbacks
         playerNameText = transform.Find("PlayerNameText").gameObject.GetComponent<TextMeshProUGUI>();
         carDisplay = transform.Find("CarDisplay").gameObject.GetComponent<Image>();
 
-        playerNameText.text = "Name: " + PhotonNetwork.NickName;
+        playerNameText.text = PhotonNetwork.NickName;
         OnChangeColor("Green");
         setReady(false);
     }
@@ -39,7 +39,7 @@ public class PlayerSetupPanel : MonoBehaviourPunCallbacks
         {
             setReady(true);
             colorButtonPanel.gameObject.SetActive(false);
-            readyButtonText.text = "UnReady";
+            readyButtonText.text = "Unready";
         }
     }
 
