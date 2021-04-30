@@ -17,14 +17,14 @@ using TMPro;
             Start Game
             Quick Start
 
-        TextMeshPro Input feilds:
+        TextMeshPro Input fields:
             Player Name
             Room Name
 
         TextMeshPro Text:
             PlayerList display
 
-        Image:
+        Images:
             All Right Logo
             Player BG Box
 */
