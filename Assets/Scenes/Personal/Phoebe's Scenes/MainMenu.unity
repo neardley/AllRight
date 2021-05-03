@@ -248,7 +248,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 86912656}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52821557bf81bfb43bff8e41a7984f94, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d02c684b0c4be14683c117195526ab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &86912659
@@ -380,7 +380,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Green
+          m_StringArgument: Pink Purple
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &141363042
@@ -1814,7 +1814,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Green
+          m_StringArgument: White Black
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &556186543
@@ -2173,7 +2173,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 593252624}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52821557bf81bfb43bff8e41a7984f94, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d02c684b0c4be14683c117195526ab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &593252627
@@ -2715,7 +2715,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Green
+          m_StringArgument: Orange Purple
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &654060558
@@ -2847,7 +2847,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Blue
+          m_StringArgument: Orange Green
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &657388365
@@ -2903,7 +2903,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &693980448
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3607,7 +3607,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 878407850}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52821557bf81bfb43bff8e41a7984f94, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d02c684b0c4be14683c117195526ab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &878407853
@@ -3738,7 +3738,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 879437801}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc77f1e81aef6ab4fbb3428f5e1a4874, type: 3}
+  m_Script: {fileID: 11500000, guid: 21b3605a462c2c3428694216a69d8c2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &906646551
@@ -3791,7 +3791,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 906646551}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52821557bf81bfb43bff8e41a7984f94, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d02c684b0c4be14683c117195526ab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &906646554
@@ -4241,7 +4241,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1134479757}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52821557bf81bfb43bff8e41a7984f94, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d02c684b0c4be14683c117195526ab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1134479760
@@ -4373,7 +4373,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Green
+          m_StringArgument: Yellow Green
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1183561157
@@ -4777,7 +4777,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1257883085
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5010,7 +5010,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1363949314}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52821557bf81bfb43bff8e41a7984f94, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d02c684b0c4be14683c117195526ab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1363949317
@@ -6421,7 +6421,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Green
+          m_StringArgument: Yellow Blue
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1813781064
@@ -6689,7 +6689,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1884884359}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52821557bf81bfb43bff8e41a7984f94, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d02c684b0c4be14683c117195526ab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1884884362
@@ -6955,7 +6955,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Green
+          m_StringArgument: Pink Blue
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1956467626
@@ -7929,7 +7929,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Red
+          m_StringArgument: Red Blue
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2143473871
