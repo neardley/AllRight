@@ -20,8 +20,6 @@ public class PlayerController : MonoBehaviour
     public bool flip = false;
     public float maxTurn = 20f;
 
-    public List<WheelCollider> throttleWheels;
-    public List<WheelCollider> steeringWheels;
     private Rigidbody rb;
 
     public int id;
@@ -55,7 +53,6 @@ public class PlayerController : MonoBehaviour
 
             if (throttleAmount != 0)
             {
-                //transform.position += transform.forward * speed * throttleAmount * -1;
                 rb.AddForce(transform.forward * speed * throttleAmount * -1);
             }
 
@@ -187,5 +184,15 @@ public class PlayerController : MonoBehaviour
         //    this.gameObject.transform.rotation = new Quaternion(0, currentRot.y, currentRot.z, currentRot.w);
         //    //this.gameObject.transform.position = new Vector3(currentPos.x, 0f, currentPos.z);
         //}
+    }
+
+    public IEnumerator SpeedBoost()
+    {
+        if (photonView.IsMine)
+        {
+            speed += 1000;
+            yield return new WaitForSeconds(5f);
+            speed -= 1000;
+        }
     }
 }

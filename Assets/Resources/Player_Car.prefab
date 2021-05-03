@@ -777,12 +777,12 @@ Rigidbody:
   m_GameObject: {fileID: 4400082781703733369}
   serializedVersion: 2
   m_Mass: 200
-  m_Drag: 0.05
-  m_AngularDrag: 0.05
+  m_Drag: 0
+  m_AngularDrag: 0.5
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 96
   m_CollisionDetection: 0
 --- !u!65 &3589740726464247748
 BoxCollider:
@@ -814,14 +814,6 @@ MonoBehaviour:
   speed: 5500
   flip: 0
   maxTurn: 20
-  throttleWheels:
-  - {fileID: 3589740726699083992}
-  - {fileID: 3589740726359826375}
-  - {fileID: 3589740724850735245}
-  - {fileID: 3589740726726274833}
-  steeringWheels:
-  - {fileID: 3589740726726274833}
-  - {fileID: 3589740724850735245}
   id: 0
   photonView: {fileID: -8915863931104387446}
 --- !u!114 &7979430280251023084

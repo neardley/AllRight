@@ -11,6 +11,10 @@ public class SpeedBoostPickup : MonoBehaviour
 
 
             Debug.Log("Picking up Speed Boost");
+
+            PlayerController car = other.GetComponent<PlayerController>();
+            car.StartCoroutine(car.SpeedBoost());
+            //gameObject.SetActive(false);
             Destroy(gameObject);
 
             //speed booth effect code
