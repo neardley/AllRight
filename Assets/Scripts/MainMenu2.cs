@@ -224,8 +224,6 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
     //Sets displays to target a network player; any extra displays are set to -1
     void SetDisplayTargets()
     {
-        Debug.Log("Setting Targets");
-
         //find valid player IDs
         Dictionary<int, Player>.KeyCollection.Enumerator validIDs = PhotonNetwork.CurrentRoom.Players.Keys.GetEnumerator();
 

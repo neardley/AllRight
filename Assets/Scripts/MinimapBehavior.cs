@@ -17,36 +17,42 @@ public class MinimapBehavior : MonoBehaviour
     public Image otherPlayerMarkerPrefab;
 
     public PhotonView photonView;
+    List<PlayerController> players;
 
     private void Start()
     {
         photonView = GetComponent<PhotonView>();
         otherPlayers = new Transform[PhotonNetwork.PlayerList.Length - 1];
-        StartCoroutine(FindTargets());
     }
 
-    IEnumerator FindTargets()
+    public IEnumerator FindTargets()
     {
-        GameObject[] playerObjs = GameObject.FindGameObjectsWithTag("Player");
-        List<Transform> newOtherPlayers = new List<Transform>();
+        players = PlayerManager.instance.players;
+        List<Transform> newPlayers = new List<Transform>();
 
         //if not all players are found retry after 0.1 seconds
-        while (playerObjs.Length != PhotonNetwork.PlayerList.Length)
+        while (players.Count != PhotonNetwork.PlayerList.Length)
         {
             yield return new WaitForSeconds(0.1f);
-            playerObjs = GameObject.FindGameObjectsWithTag("Player");
+            players = PlayerManager.instance.players;
         }
 
-        foreach (GameObject playerObj in playerObjs)
+        foreach (PlayerController p in players)
         {
-            if (PhotonView.Get(playerObj).IsMine)
+            while (players == null)
             {
-                player = playerObj.transform;
+                Debug.Log("player null retrying in 0.1 seconds");
+                yield return new WaitForSeconds(0.1f);
+            }
+            //Debug.Log(p);
+            if (p.photonView.IsMine)
+            {
+                player = p.transform;
             }
             else
-                newOtherPlayers.Add(playerObj.transform);
+                newPlayers.Add(p.transform);
         }
-        newOtherPlayers.CopyTo(otherPlayers);
+        otherPlayers = newPlayers.ToArray();
     }
 
 
@@ -79,4 +85,5 @@ public class MinimapBehavior : MonoBehaviour
         }
         
     }
+
 }

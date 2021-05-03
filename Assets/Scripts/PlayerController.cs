@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public List<WheelCollider> steeringWheels;
     private Rigidbody rb;
 
+
     public int id;
     public PhotonView photonView;
     public Player photonPlayer;
@@ -35,14 +36,13 @@ public class PlayerController : MonoBehaviour
         photonPlayer = player;
         id = player.ActorNumber;
 
-        PlayerManager.instance.players[id - 1] = this;
+        PlayerManager.instance.players.Add(this);
 
         if (!photonView.IsMine)
             rb.isKinematic = true;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody>();
     }
