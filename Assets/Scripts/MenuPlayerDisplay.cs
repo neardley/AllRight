@@ -46,7 +46,7 @@ public class MenuPlayerDisplay : MonoBehaviour
             {
                 isReadyText.text = "Ready";
             }
-            else isReadyText.text = "Not Ready";
+            else isReadyText.text = ""; //set to empty for Not Ready
         }
         else transform.localScale = Vector3.zero;
     }
