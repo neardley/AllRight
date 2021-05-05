@@ -19,15 +19,23 @@ public class PlayerController : MonoBehaviour
     private float throttleAmount = 0f;
     public bool flip = false;
     public float maxTurn = 20f;
+    private int dir = 1;
 
-    public List<WheelCollider> throttleWheels;
-    public List<WheelCollider> steeringWheels;
-    private Rigidbody rb;
+    //private Rigidbody rb;
 
 
     public int id;
     public PhotonView photonView;
     public Player photonPlayer;
+
+
+    public Rigidbody sphere;
+    public float forwardAccel = 8f, reverseAccel = 4f, gravityForce = 10f;
+    private bool grounded;
+
+    public LayerMask whatIsGround;
+    public float groundRayLength = 0.5f;
+    public Transform groundRayPoint;
 
 
     [PunRPC]
@@ -36,8 +44,7 @@ public class PlayerController : MonoBehaviour
         photonPlayer = player;
         id = player.ActorNumber;
 
-        if (!photonView.IsMine)
-            rb.isKinematic = true;
+        if (!photonView.IsMine) sphere.isKinematic = true;
 
         PlayerManager.instance.players.Add(this);
 
@@ -50,7 +57,8 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        rb = gameObject.GetComponent<Rigidbody>();
+        sphere = gameObject.GetComponentInChildren<Rigidbody>();
+        sphere.transform.parent = null;
     }
 
     // Update is called once per frame
@@ -58,33 +66,22 @@ public class PlayerController : MonoBehaviour
     {
         if (photonView.IsMine)
         {
-
             if (throttleAmount != 0)
             {
-                //transform.position += transform.forward * speed * throttleAmount * -1;
-                rb.AddForce(transform.forward * speed * throttleAmount * -1);
+                sphere.AddForce(transform.forward * speed * throttleAmount * -3000);
+
+                if (throttleAmount > 0)
+                    dir = 1;
+                else
+                    dir = -1;
+
+                if (turnAmount != 0)
+                {
+                    transform.Rotate(0f, turnSpeed * turnAmount * dir, 0f);
+                }
             }
 
-            //if (throttleAmount != 0)
-            //{
-            //    foreach (WheelCollider wheel in throttleWheels)
-            //    {
-            //        wheel.motorTorque += speed * Time.deltaTime * throttleAmount * -1;
-            //    }
-            //}
-
-            if (turnAmount != 0)
-            {
-                transform.Rotate(0f, turnSpeed * turnAmount, 0f);
-            }
-
-            //if (turnAmount != 0)
-            //{
-            //    foreach (WheelCollider wheel in steeringWheels)
-            //    {
-            //        wheel.steerAngle = turnSpeed * maxTurn * turnAmount;
-            //    }
-            //}
+            transform.position = sphere.transform.position - new Vector3(0, 1f, 0);
         }
     }
 
@@ -193,5 +190,15 @@ public class PlayerController : MonoBehaviour
         //    this.gameObject.transform.rotation = new Quaternion(0, currentRot.y, currentRot.z, currentRot.w);
         //    //this.gameObject.transform.position = new Vector3(currentPos.x, 0f, currentPos.z);
         //}
+    }
+
+    public IEnumerator SpeedBoost()
+    {
+        if (photonView.IsMine)
+        {
+            speed += 1000;
+            yield return new WaitForSeconds(5f);
+            speed -= 1000;
+        }
     }
 }
