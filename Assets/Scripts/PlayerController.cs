@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask whatIsGround;
     public float groundRayLength = 0.5f;
     public Transform groundRayPoint;
+    GameObject menuPanel;
 
 
     [PunRPC]
@@ -65,6 +66,7 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
+        menuPanel = FindObjectOfType<GameMenu>(true).gameObject;
         sphere = gameObject.GetComponentInChildren<Rigidbody>();
         sphere.transform.parent = null;
     }
@@ -180,7 +182,8 @@ public class PlayerController : MonoBehaviour
     void OnOpenMenu()
     {
         Debug.Log("Toggle Menu");
-        // TODO toggle menu
+        if (menuPanel.activeInHierarchy) menuPanel.SetActive(false);
+        else menuPanel.SetActive(true);
     }
 
     public void Flip()

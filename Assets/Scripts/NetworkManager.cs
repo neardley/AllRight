@@ -19,12 +19,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         // if an instance already exists and it's not this one - destroy us
         if (instance != null && instance != this)
-            gameObject.SetActive(false);
+            Destroy(this);
         // otherwise, set the instance to this scipt
         else
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
     }
     #endregion Singleton

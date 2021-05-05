@@ -83,7 +83,7 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
         //init player custom props
         Hashtable hash = new Hashtable();
         hash.Add("Ready", "false");
-        hash.Add("Color", "green");
+        hash.Add("Color", "red blue");
         PhotonNetwork.SetPlayerCustomProperties(hash);
     }
 

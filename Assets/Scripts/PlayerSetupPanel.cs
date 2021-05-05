@@ -24,7 +24,7 @@ public class PlayerSetupPanel : MonoBehaviourPunCallbacks
         carDisplay = transform.Find("CarDisplay").gameObject.GetComponent<Image>();
 
         playerNameText.text = PhotonNetwork.NickName;
-        OnChangeColor("Green");
+        OnChangeColor("Red Blue");
         setReady(false);
     }
 
