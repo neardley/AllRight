@@ -53,6 +53,14 @@ public class PlayerController : MonoBehaviour
         if (miniMap != null) miniMap.FindTargets();
         else Debug.Log("Could Not find Minimap Script");
 
+        //set Color
+        Debug.Log((string)photonPlayer.CustomProperties["Color"]);
+        string[] colors = ((string)photonPlayer.CustomProperties["Color"]).Split(' ');
+        MeshRenderer primaryColor = transform.Find("Car_Body_Red").GetComponent<MeshRenderer>();
+        MeshRenderer auxColor = transform.Find("Car_Body_Blue").GetComponent<MeshRenderer>();
+        primaryColor.material.color = Colors.ToColor(colors[0]);
+        auxColor.material.color = Colors.ToColor(colors[1]);
+
     }
 
     void Awake()
