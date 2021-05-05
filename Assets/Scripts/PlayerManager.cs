@@ -43,5 +43,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         PlayerController playerScript = playerObj.GetComponent<PlayerController>();
         playerScript.photonView.RPC("Initialize", RpcTarget.All, PhotonNetwork.LocalPlayer);
         playerObj.transform.position = spawnPoints[playerScript.id - 1].position;
+        playerObj.transform.Rotate(0, 270, 0);
     }
 }
