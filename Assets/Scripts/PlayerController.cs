@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            transform.position = sphere.transform.position - new Vector3(0, .6f, 0);
+            transform.position = sphere.transform.position - new Vector3(0, 1f, 0);
         }
     }
 
