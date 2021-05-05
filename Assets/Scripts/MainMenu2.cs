@@ -49,7 +49,7 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
     int readyCount = 0;
 
 
-    MenuPlayerDisplay[] networkPlayerDisplays;
+    List<MenuPlayerDisplay> networkPlayerDisplays;
 
 
     public string GameSceneName = "Game";
@@ -76,8 +76,9 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
         leaveRoomButton.onClick.AddListener(OnLeaveRoomButton);
         playerNameInput.onValueChanged.AddListener(delegate { OnPlayerNameChange(); });
 
-        //get refs to player display panels
-        networkPlayerDisplays = FindObjectsOfType<MenuPlayerDisplay>(true);
+        //get refs to player display panels and sort list
+        networkPlayerDisplays = new List<MenuPlayerDisplay>(FindObjectsOfType<MenuPlayerDisplay>(true));
+        networkPlayerDisplays.Sort((x,y) => string.Compare(x.gameObject.name, y.gameObject.name));
 
         //init player custom props
         Hashtable hash = new Hashtable();
@@ -247,7 +248,6 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
                 {
                     if (validIDs.MoveNext()) player = PhotonNetwork.CurrentRoom.Players[validIDs.Current];
                     else { display.SetTarget(-1); continue; }
-
                 }
                 display.SetTarget(validIDs.Current);
             }
