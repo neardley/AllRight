@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
         {
             if (throttleAmount != 0)
             {
-                sphere.AddForce(transform.forward * speed * throttleAmount * -3000);
+                sphere.AddForce(transform.forward * speed * throttleAmount * -3000 * Time.deltaTime);
 
                 if (throttleAmount > 0)
                     dir = 1;
