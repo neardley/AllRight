@@ -36,10 +36,16 @@ public class PlayerController : MonoBehaviour
         photonPlayer = player;
         id = player.ActorNumber;
 
-        PlayerManager.instance.players.Add(this);
-
         if (!photonView.IsMine)
             rb.isKinematic = true;
+
+        PlayerManager.instance.players.Add(this);
+
+        //update minimap
+        MinimapBehavior miniMap = FindObjectOfType<MinimapBehavior>();
+        if (miniMap != null) miniMap.FindTargets();
+        else Debug.Log("Could Not find Minimap Script");
+
     }
 
     void Awake()

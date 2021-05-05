@@ -74,10 +74,16 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
         startGameButton.onClick.AddListener(OnStartGameButton);
         quickStartButton.onClick.AddListener(OnQuickStartButton);
         leaveRoomButton.onClick.AddListener(OnLeaveRoomButton);
-
         playerNameInput.onValueChanged.AddListener(delegate { OnPlayerNameChange(); });
 
+        //get refs to player display panels
         networkPlayerDisplays = FindObjectsOfType<MenuPlayerDisplay>(true);
+
+        //init player custom props
+        Hashtable hash = new Hashtable();
+        hash.Add("Ready", "false");
+        hash.Add("Color", "green");
+        PhotonNetwork.SetPlayerCustomProperties(hash);
     }
 
     public override void OnConnectedToMaster()
@@ -196,6 +202,7 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
 
     public void OnStartGameButton()
     {
+        PhotonNetwork.CurrentRoom.IsOpen = false;
         NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, GameSceneName);
     }
 

@@ -13,6 +13,8 @@ public class PlayerSetupPanel : MonoBehaviourPunCallbacks
     TextMeshProUGUI playerNameText;
     Image carDisplay;
 
+
+
     // Start is called before the first frame update
     void Start()
     {

@@ -41,11 +41,14 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
     void SpawnPlayer()
     {
-        GameObject playerObj = PhotonNetwork.Instantiate(playerPrefabLocation, spawnPoints[0].position, Quaternion.identity, 0);
-        PlayerController playerScript = playerObj.GetComponent<PlayerController>();
-        playerScript.photonView.RPC("Initialize", RpcTarget.All, PhotonNetwork.LocalPlayer);
-        playerObj.transform.position = spawnPoints[playerScript.id - 1].position;
-        StartCoroutine(miniMap.FindTargets());
+        int id = PhotonNetwork.LocalPlayer.ActorNumber;
+        if (id >= 1 && id <= spawnPoints.Length)
+        {
+            GameObject playerObj = PhotonNetwork.Instantiate(playerPrefabLocation, spawnPoints[id - 1].position, spawnPoints[id - 1].rotation, 0);
+            PlayerController playerScript = playerObj.GetComponent<PlayerController>();
+            playerScript.photonView.RPC("Initialize", RpcTarget.All, PhotonNetwork.LocalPlayer);
+        }
+        else Debug.Log("Photon Player ID not in spawnpoint range");
     }
 
     public PlayerController GetPlayer(string name)
@@ -62,6 +65,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     {
         Debug.Log(otherPlayer.NickName + " Has left game");
         players.Remove(GetPlayer(otherPlayer.ActorNumber));
-        StartCoroutine(miniMap.FindTargets());
+        miniMap.FindTargets();
     }
 }
