@@ -12,7 +12,7 @@ public class MinimapBehavior : MonoBehaviour
 {
     public float minimapScale;
     public Transform player;
-    public Transform[] otherPlayers;
+    public List<Transform> otherPlayers;
     public Image playerMarkerPrefab;
     public Image otherPlayerMarkerPrefab;
 
@@ -21,62 +21,49 @@ public class MinimapBehavior : MonoBehaviour
     private void Start()
     {
         photonView = GetComponent<PhotonView>();
-        otherPlayers = new Transform[PhotonNetwork.PlayerList.Length - 1];
-        StartCoroutine(FindTargets());
+        otherPlayers = new List<Transform>();
     }
 
-    IEnumerator FindTargets()
+
+    public void FindTargets()
     {
-        GameObject[] playerObjs = GameObject.FindGameObjectsWithTag("Player");
-        List<Transform> newOtherPlayers = new List<Transform>();
+        List<PlayerController> players = PlayerManager.instance.players;
 
-        //if not all players are found retry after 0.1 seconds
-        while (playerObjs.Length != PhotonNetwork.PlayerList.Length)
-        {
-            yield return new WaitForSeconds(0.1f);
-            playerObjs = GameObject.FindGameObjectsWithTag("Player");
-        }
+        // Try find local player's transform
+        PlayerController foundplayer = players.Find(x => x.photonView.IsMine);
+        if (foundplayer != null) player = foundplayer.transform;
 
-        foreach (GameObject playerObj in playerObjs)
-        {
-            if (PhotonView.Get(playerObj).IsMine)
-            {
-                player = playerObj.transform;
-            }
-            else
-                newOtherPlayers.Add(playerObj.transform);
-        }
-        newOtherPlayers.CopyTo(otherPlayers);
+        // All others are put into otherPlayers
+        otherPlayers = players.FindAll(x => !x.photonView.IsMine).ConvertAll<Transform>(x => x.transform);
     }
-
 
     // Update is called once per frame
     void Update()
     {
-        if(player != null)
+        foreach (Transform child in transform)
         {
-            foreach (Transform child in transform)
-            {
-                Destroy(child.gameObject);
-            }
+            Destroy(child.gameObject);
+        }
 
-            Image marker = Instantiate(playerMarkerPrefab, transform);
-            marker.transform.SetParent(transform);
-            marker.rectTransform.anchoredPosition = new Vector2(
+        if (player != null)
+        {
+            Image playerMarker = Instantiate(playerMarkerPrefab, transform);
+            playerMarker.transform.SetParent(transform);
+            playerMarker.rectTransform.anchoredPosition = new Vector2(
                 player.localPosition.x,
                 player.localPosition.z
             ) * minimapScale;
-
-            foreach (Transform other in otherPlayers)
-            {
-                marker = Instantiate(otherPlayerMarkerPrefab, transform);
-                marker.transform.SetParent(transform);
-                marker.rectTransform.anchoredPosition = new Vector2(
-                    other.localPosition.x,
-                    other.localPosition.z
-                ) * minimapScale;
-            }
         }
         
+        foreach (Transform other in otherPlayers)
+        {
+            Image otherMarker = Instantiate(otherPlayerMarkerPrefab, transform);
+            otherMarker.transform.SetParent(transform);
+            otherMarker.rectTransform.anchoredPosition = new Vector2(
+                other.localPosition.x,
+                other.localPosition.z
+            ) * minimapScale;
+        }
     }
+
 }

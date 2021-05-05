@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
 
     //private Rigidbody rb;
 
+
     public int id;
     public PhotonView photonView;
     public Player photonPlayer;
@@ -43,17 +44,18 @@ public class PlayerController : MonoBehaviour
         photonPlayer = player;
         id = player.ActorNumber;
 
-        PlayerManager.instance.players[id - 1] = this;
+        if (!photonView.IsMine) sphere.isKinematic = true;
 
-        if (!photonView.IsMine)
-        {
-            //rb.isKinematic = true;
-            sphere.isKinematic = true;
-        }
+        PlayerManager.instance.players.Add(this);
+
+        //update minimap
+        MinimapBehavior miniMap = FindObjectOfType<MinimapBehavior>();
+        if (miniMap != null) miniMap.FindTargets();
+        else Debug.Log("Could Not find Minimap Script");
+
     }
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         sphere = gameObject.GetComponentInChildren<Rigidbody>();
         sphere.transform.parent = null;
