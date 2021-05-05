@@ -786,7 +786,7 @@ MonoBehaviour:
   maxTurn: 20
   id: 0
   photonView: {fileID: -8915863931104387446}
-  sphere: {fileID: 0}
+  sphere: {fileID: 2192889941687693072}
   forwardAccel: 8
   reverseAccel: 4
   gravityForce: 10
