@@ -44,7 +44,7 @@ public class Checkpoint : MonoBehaviour
     //basic idea: recursive/iterate through checklist, check if the one before it is null or true
     //if it is make it equal false, change current one to true, go to the next one etc.
     private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.tag.Equals("Check")) {  
+        if (other.gameObject.tag.Equals("Check")) {
             j++;
             for (int i = 0; i < j; i++)
             {
@@ -63,9 +63,11 @@ public class Checkpoint : MonoBehaviour
         }
         //lap function
         if ((other.gameObject.tag == "FinishLine") && (gotHalf == true)) {
+            player.GetComponent<PlayerController>().PlaySFX("checkpoint");
             lap++;
         }
         if (lap == 3) {
+            player.GetComponent<PlayerController>().GameOver();
             hasWon = true;
             Debug.Log("You have won!");
             endScene.SetActive(true);

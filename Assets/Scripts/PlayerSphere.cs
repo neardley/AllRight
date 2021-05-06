@@ -8,4 +8,8 @@ public class PlayerSphere : MonoBehaviour
     // because car is no longer parent of the sphere
     public PlayerController player;
 
+    private void OnCollisionEnter(Collision other)
+    {
+        player.PlaySFX("car_crash_classic", true);
+    }
 }

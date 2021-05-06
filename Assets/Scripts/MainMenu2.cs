@@ -35,6 +35,10 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
 {
     public PhotonView photonView;
 
+    [Range(0, 1)]
+    public float SFXVolume = 1f;
+    private AudioSource sfx;
+
     [Header("Start")]
     public Transform startPanel;
     public TMP_InputField playerNameInput, roomNameInput;
@@ -85,6 +89,12 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
         hash.Add("Ready", "false");
         hash.Add("Color", "red blue");
         PhotonNetwork.SetPlayerCustomProperties(hash);
+
+        sfx = gameObject.AddComponent<AudioSource>();
+    }
+
+    private void Update() {
+        sfx.volume = SFXVolume;
     }
 
     public override void OnConnectedToMaster()
@@ -135,6 +145,7 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player otherPlayer)
     {
+        PlaySFX("player_join_lobby");
         UpdateReadyCount();
         UpdateRoomUI();
     }
@@ -179,12 +190,14 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
 
     public void OnCreateRoomButton()
     {
+        PlaySFX("menu_select");
         CheckPlayerName();
         NetworkManager.instance.CreateRoom(roomNameInput.text.ToUpper());
     }
 
     public void OnJoinRoomButton()
     {
+        PlaySFX("menu_select");
         if (roomNameInput.text == "") playerListText.text = "Room Name cannot be blank";
         else
         {
@@ -195,6 +208,7 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
 
     public void OnLeaveRoomButton()
     {
+        PlaySFX("menu_select");
         PhotonNetwork.LeaveRoom();
         playerListText.text = "";
         roomPanel.gameObject.SetActive(false);
@@ -203,12 +217,14 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
 
     public void OnStartGameButton()
     {
+        PlaySFX("menu_select");
         PhotonNetwork.CurrentRoom.IsOpen = false;
         NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, GameSceneName);
     }
 
     public void OnQuickStartButton()
     {
+        PlaySFX("menu_select");
         int roomNumber = Random.Range(0, 100);
         CheckPlayerName();
         startOnJoin = true;
@@ -217,6 +233,7 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
 
     public void OnJoinRandomButton()
     {
+        PlaySFX("menu_select");
         NetworkManager.instance.JoinRandomRoom();
     }
 
@@ -266,5 +283,10 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
                 readyCount++;
             }
         }
+    }
+
+    public void PlaySFX(string filename, bool forEveryone = false) {
+        if (forEveryone || photonView.IsMine)
+            sfx.PlayOneShot(Resources.Load<AudioClip>("Sounds/" + filename), SFXVolume);
     }
 }

@@ -797,6 +797,7 @@ MonoBehaviour:
     m_Bits: 8
   groundRayLength: 0.5
   groundRayPoint: {fileID: 3504201914273198672}
+  SFXVolume: 0.65
 --- !u!114 &7979430280251023084
 MonoBehaviour:
   m_ObjectHideFlags: 0
