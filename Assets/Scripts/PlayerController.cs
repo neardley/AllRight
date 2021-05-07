@@ -78,19 +78,20 @@ public class PlayerController : MonoBehaviour
         {
             if (throttleAmount != 0)
             {
-                sphere.AddForce(transform.forward * speed * throttleAmount * -3000 * Time.deltaTime);
+                sphere.AddForce(transform.forward * speed * throttleAmount * -3000);
 
                 if (throttleAmount > 0)
                     dir = 1;
                 else
                     dir = -1;
 
-                if (turnAmount != 0)
-                {
-                    transform.Rotate(0f, turnSpeed * turnAmount * dir, 0f);
-                }
+
             }
 
+            if (turnAmount != 0)
+            {
+                transform.Rotate(0f, turnSpeed * turnAmount * dir, 0f);
+            }
             transform.position = sphere.transform.position - new Vector3(0, 1f, 0);
         }
     }
