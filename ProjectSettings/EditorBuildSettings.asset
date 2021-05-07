@@ -24,7 +24,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Personal/Phoebe's Scenes/MainMenu.unity
     guid: 59bd2a93a8ca7e74a95c3189c9b6c7b6
   - enabled: 1
-    path: Assets/Scenes/Level_1_Track.unity
+    path: Assets/Scenes/Level_1_Track_Old.unity
     guid: aa1dd825be3b70947af8997741cf3962
   - enabled: 1
     path: Assets/Scenes/Personal/Phoebe's Scenes/LevelSelect.unity
