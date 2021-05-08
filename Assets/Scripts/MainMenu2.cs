@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 /* Menu.cs
 // Contains callbacks for menu buttons and text boxes
@@ -34,19 +35,22 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
 {
     public PhotonView photonView;
 
-    public Button createRoomButton;
-    public Button joinRoomButton;
+    [Header("Start")]
+    public Transform startPanel;
+    public TMP_InputField playerNameInput, roomNameInput;
+    public Button createRoomButton, joinRoomButton, quickStartButton;
+    public Image allRightLogo, playerBox;
+
+    [Header("Room")]
+    public Transform roomPanel;
     public Button leaveRoomButton;
     public Button startGameButton;
-    public Button quickStartButton;
-
-    public TMP_InputField playerNameInput;
-    public TMP_InputField roomNameInput;
-
     public TextMeshProUGUI playerListText;
+    int readyCount = 0;
 
-    public Image allRightLogo;
-    public Image playerBox;
+
+    List<MenuPlayerDisplay> networkPlayerDisplays;
+
 
     public string GameSceneName = "Game";
 
@@ -55,11 +59,10 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
     void Start()
     {
         startOnJoin = false;
+
         createRoomButton.interactable = false;
         joinRoomButton.interactable = false;
-        startGameButton.interactable = false;
         quickStartButton.interactable = false;
-        leaveRoomButton.interactable = false;
         playerNameInput.interactable = false;
         roomNameInput.interactable = false;
         
@@ -71,14 +74,17 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
         startGameButton.onClick.AddListener(OnStartGameButton);
         quickStartButton.onClick.AddListener(OnQuickStartButton);
         leaveRoomButton.onClick.AddListener(OnLeaveRoomButton);
-
-        //Hide these elements until player joins a room
-        playerListText.transform.localScale = new Vector3(0, 0, 0);
-        leaveRoomButton.transform.localScale = new Vector3(0, 0, 0);
-        startGameButton.transform.localScale = new Vector3(0, 0, 0);
-        playerBox.transform.localScale = new Vector3(0, 0, 0);
-
         playerNameInput.onValueChanged.AddListener(delegate { OnPlayerNameChange(); });
+
+        //get refs to player display panels and sort list
+        networkPlayerDisplays = new List<MenuPlayerDisplay>(FindObjectsOfType<MenuPlayerDisplay>(true));
+        networkPlayerDisplays.Sort((x,y) => string.Compare(x.gameObject.name, y.gameObject.name));
+
+        //init player custom props
+        Hashtable hash = new Hashtable();
+        hash.Add("Ready", "false");
+        hash.Add("Color", "red blue");
+        PhotonNetwork.SetPlayerCustomProperties(hash);
     }
 
     public override void OnConnectedToMaster()
@@ -103,27 +109,8 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        createRoomButton.interactable = false;
-        joinRoomButton.interactable = false;
-        quickStartButton.interactable = false;
-        startGameButton.interactable = true;
-        leaveRoomButton.interactable = true;
-        playerNameInput.interactable = false;
-        roomNameInput.interactable = false;
-
-        //Show buttons/text that are now relevant
-        playerListText.transform.localScale = new Vector3(1, 1, 1);
-        leaveRoomButton.transform.localScale = new Vector3(1, 1, 1);
-        startGameButton.transform.localScale = new Vector3(1, 1, 1);
-        playerBox.transform.localScale = new Vector3(1, 1, 1);
-
-        //Hide elements no longer relevant
-        joinRoomButton.transform.localScale = new Vector3(0, 0, 0);
-        createRoomButton.transform.localScale = new Vector3(0, 0, 0);
-        playerNameInput.transform.localScale = new Vector3(0, 0, 0);
-        roomNameInput.transform.localScale = new Vector3(0, 0, 0);
-        allRightLogo.transform.localScale = new Vector3(0, 0, 0);
-        quickStartButton.transform.localScale = new Vector3(0, 0, 0);
+        roomPanel.gameObject.SetActive(true);
+        startPanel.gameObject.SetActive(false);
 
         photonView.RPC("UpdateRoomUI", RpcTarget.All);
     }
@@ -142,23 +129,52 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
+        UpdateReadyCount();
+        UpdateRoomUI();
+    }
+
+    public override void OnPlayerEnteredRoom(Player otherPlayer)
+    {
+        UpdateReadyCount();
+        UpdateRoomUI();
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+    {
+        UpdateReadyCount();
         UpdateRoomUI();
     }
 
     [PunRPC]
     public void UpdateRoomUI()
     {
-        playerListText.text = "Room: " + PhotonNetwork.CurrentRoom.Name + "\n\nPlayer List:\n\n";
+        SetDisplayTargets();
+        playerListText.text = "Room:\n" + PhotonNetwork.CurrentRoom.Name + "\n\n";
+        playerListText.text += "Ready: (" + readyCount + "/" + PhotonNetwork.CurrentRoom.PlayerCount + ")";
 
-        foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
+        /*foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
         {
-            playerListText.text += player.Value.NickName + "\n";
-        }
+            //Debug.Log(player.Value.NickName + player.Value.CustomProperties["Ready"]);
+            playerListText.text += player.Key + player.Value.NickName;
+            if((string) player.Value.CustomProperties["Ready"] == "true")
+            {
+                playerListText.text += " Ready";
+            }
+            else playerListText.text += " Not Ready";
 
-        if (PhotonNetwork.IsMasterClient)
+            playerListText.text += "\n";
+        }*/
+
+        if (PhotonNetwork.IsMasterClient && readyCount == PhotonNetwork.CurrentRoom.PlayerCount)
             startGameButton.interactable = true;
         else
             startGameButton.interactable = false;
+
+        if(PhotonNetwork.CurrentRoom.Players.Count != 0)
+        {
+            foreach (MenuPlayerDisplay display in networkPlayerDisplays) display.UpdateUI();
+        }
+        
     }
 
     public void OnCreateRoomButton()
@@ -181,31 +197,13 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LeaveRoom();
         playerListText.text = "";
-        startGameButton.interactable = false;
-        leaveRoomButton.interactable = false;
-        quickStartButton.interactable = true;
-        createRoomButton.interactable = true;
-        joinRoomButton.interactable = true;
-        playerNameInput.interactable = true;
-        roomNameInput.interactable = true;
-
-        //Hide buttons/text that are no longer relevant
-        playerListText.transform.localScale = new Vector3(0, 0, 0);
-        leaveRoomButton.transform.localScale = new Vector3(0, 0, 0);
-        startGameButton.transform.localScale = new Vector3(0, 0, 0);
-        playerBox.transform.localScale = new Vector3(0, 0, 0);
-
-        //Show elements that are relevant again
-        joinRoomButton.transform.localScale = new Vector3(1, 1, 1);
-        createRoomButton.transform.localScale = new Vector3(1, 1, 1);
-        playerNameInput.transform.localScale = new Vector3(1, 1, 1);
-        roomNameInput.transform.localScale = new Vector3(1, 1, 1);
-        allRightLogo.transform.localScale = new Vector3(1, 1, 1);
-        quickStartButton.transform.localScale = new Vector3(1, 1, 1);
+        roomPanel.gameObject.SetActive(false);
+        startPanel.gameObject.SetActive(true);
     }
 
     public void OnStartGameButton()
     {
+        PhotonNetwork.CurrentRoom.IsOpen = false;
         NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, GameSceneName);
     }
 
@@ -228,6 +226,44 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
         {
             int playerNumber = Random.Range(0, 100);
             PhotonNetwork.NickName = "Player " + playerNumber.ToString();
+        }
+    }
+
+    //Sets displays to target a network player; any extra displays are set to -1
+    void SetDisplayTargets()
+    {
+        //find valid player IDs
+        Dictionary<int, Player>.KeyCollection.Enumerator validIDs = PhotonNetwork.CurrentRoom.Players.Keys.GetEnumerator();
+
+        foreach (MenuPlayerDisplay display in networkPlayerDisplays)
+        {
+            if(validIDs.MoveNext() == true)
+            {
+                Player player = PhotonNetwork.CurrentRoom.Players[validIDs.Current];
+
+                //if local move next
+                //else set id and then move next
+
+                if (player.IsLocal)
+                {
+                    if (validIDs.MoveNext()) player = PhotonNetwork.CurrentRoom.Players[validIDs.Current];
+                    else { display.SetTarget(-1); continue; }
+                }
+                display.SetTarget(validIDs.Current);
+            }
+            else display.SetTarget(-1);
+        }
+    }
+    
+    void UpdateReadyCount()
+    {
+        readyCount = 0;
+        foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
+        {
+            if ((string)player.Value.CustomProperties["Ready"] == "true")
+            {
+                readyCount++;
+            }
         }
     }
 }

@@ -19,12 +19,24 @@ public class PlayerController : MonoBehaviour
     private float throttleAmount = 0f;
     public bool flip = false;
     public float maxTurn = 20f;
+    private int dir = 1;
 
-    private Rigidbody rb;
+    //private Rigidbody rb;
+
 
     public int id;
     public PhotonView photonView;
     public Player photonPlayer;
+
+
+    public Rigidbody sphere;
+    public float forwardAccel = 8f, reverseAccel = 4f, gravityForce = 10f;
+    private bool grounded;
+
+    public LayerMask whatIsGround;
+    public float groundRayLength = 0.5f;
+    public Transform groundRayPoint;
+    GameObject menuPanel;
 
 
     [PunRPC]
@@ -33,16 +45,30 @@ public class PlayerController : MonoBehaviour
         photonPlayer = player;
         id = player.ActorNumber;
 
-        PlayerManager.instance.players[id - 1] = this;
+        if (!photonView.IsMine) sphere.isKinematic = true;
 
-        if (!photonView.IsMine)
-            rb.isKinematic = true;
+        PlayerManager.instance.players.Add(this);
+
+        //update minimap
+        MinimapBehavior miniMap = FindObjectOfType<MinimapBehavior>();
+        if (miniMap != null) miniMap.FindTargets();
+        else Debug.Log("Could Not find Minimap Script");
+
+        //set Color
+        Debug.Log((string)photonPlayer.CustomProperties["Color"]);
+        string[] colors = ((string)photonPlayer.CustomProperties["Color"]).Split(' ');
+        MeshRenderer primaryColor = transform.Find("Car_Body_Red").GetComponent<MeshRenderer>();
+        MeshRenderer auxColor = transform.Find("Car_Body_Blue").GetComponent<MeshRenderer>();
+        primaryColor.material.color = Colors.ToColor(colors[0]);
+        auxColor.material.color = Colors.ToColor(colors[1]);
+
     }
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        rb = gameObject.GetComponent<Rigidbody>();
+        /*menuPanel = FindObjectOfType<GameMenu>(true).gameObject;*/
+        sphere = gameObject.GetComponentInChildren<Rigidbody>();
+        sphere.transform.parent = null;
     }
 
     // Update is called once per frame
@@ -50,32 +76,23 @@ public class PlayerController : MonoBehaviour
     {
         if (photonView.IsMine)
         {
-
             if (throttleAmount != 0)
             {
-                rb.AddForce(transform.forward * speed * throttleAmount * -1);
-            }
+                sphere.AddForce(transform.forward * speed * throttleAmount * -3000);
 
-            //if (throttleAmount != 0)
-            //{
-            //    foreach (WheelCollider wheel in throttleWheels)
-            //    {
-            //        wheel.motorTorque += speed * Time.deltaTime * throttleAmount * -1;
-            //    }
-            //}
+                if (throttleAmount > 0)
+                    dir = 1;
+                else
+                    dir = -1;
+
+
+            }
 
             if (turnAmount != 0)
             {
-                transform.Rotate(0f, turnSpeed * turnAmount, 0f);
+                transform.Rotate(0f, turnSpeed * turnAmount * dir, 0f);
             }
-
-            //if (turnAmount != 0)
-            //{
-            //    foreach (WheelCollider wheel in steeringWheels)
-            //    {
-            //        wheel.steerAngle = turnSpeed * maxTurn * turnAmount;
-            //    }
-            //}
+            transform.position = sphere.transform.position - new Vector3(0, 1f, 0);
         }
     }
 
@@ -166,7 +183,8 @@ public class PlayerController : MonoBehaviour
     void OnOpenMenu()
     {
         Debug.Log("Toggle Menu");
-        // TODO toggle menu
+/*        if (menuPanel.activeInHierarchy) menuPanel.SetActive(false);
+        else menuPanel.SetActive(true);*/
     }
 
     public void Flip()
