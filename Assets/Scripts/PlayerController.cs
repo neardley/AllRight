@@ -68,6 +68,8 @@ public class PlayerController : MonoBehaviour
     {
         /*menuPanel = FindObjectOfType<GameMenu>(true).gameObject;*/
         sphere = gameObject.GetComponentInChildren<Rigidbody>();
+        PlayerSphere sphereObj = sphere.GetComponent<PlayerSphere>();
+        sphereObj.player = this;
         sphere.transform.parent = null;
     }
 
@@ -79,17 +81,15 @@ public class PlayerController : MonoBehaviour
             if (throttleAmount != 0)
             {
                 sphere.AddForce(transform.forward * speed * throttleAmount * -3000);
-
-                if (throttleAmount > 0)
-                    dir = 1;
-                else
-                    dir = -1;
-
-
             }
 
             if (turnAmount != 0)
             {
+                if (throttleAmount == 0 || throttleAmount > 0)
+                    dir = 1;
+                else
+                    dir = -1;
+
                 transform.Rotate(0f, turnSpeed * turnAmount * dir, 0f);
             }
             transform.position = sphere.transform.position - new Vector3(0, 1f, 0);
@@ -208,9 +208,9 @@ public class PlayerController : MonoBehaviour
     {
         if (photonView.IsMine)
         {
-            speed += 1000;
-            yield return new WaitForSeconds(5f);
-            speed -= 1000;
+            speed += 7;
+            yield return new WaitForSeconds(10f);
+            speed -= 7;
         }
     }
 }
