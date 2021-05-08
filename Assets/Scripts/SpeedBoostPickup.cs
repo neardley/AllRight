@@ -10,10 +10,9 @@ public class SpeedBoostPickup : MonoBehaviour
 
             PlayerSphere carSphere = other.GetComponent<PlayerSphere>();
             PlayerController car = carSphere.player;
-            car.StartCoroutine(car.SpeedBoost());
-            //gameObject.SetActive(false);
-            Destroy(gameObject);
+            car.StartCoroutine(car.SpeedBoost(gameObject));
 
+            // disappearing & reappearing code is in SpeedBoost IEnumerator in PlayerController
         }
     }
 }

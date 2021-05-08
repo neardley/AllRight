@@ -204,13 +204,15 @@ public class PlayerController : MonoBehaviour
         //}
     }
 
-    public IEnumerator SpeedBoost()
+    public IEnumerator SpeedBoost(GameObject speedBoostObj)
     {
         if (photonView.IsMine)
         {
-            speed += 7;
+            speed += 9;
+            speedBoostObj.SetActive(false);
             yield return new WaitForSeconds(10f);
-            speed -= 7;
+            speed -= 9;
+            speedBoostObj.SetActive(true);
         }
     }
 }
