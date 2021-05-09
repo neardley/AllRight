@@ -6,18 +6,13 @@ public class SpeedBoostPickup : MonoBehaviour
 {
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player") {
+        if (other.gameObject.tag == "PlayerSphere") {
 
+            PlayerSphere carSphere = other.GetComponent<PlayerSphere>();
+            PlayerController car = carSphere.player;
+            car.StartCoroutine(car.SpeedBoost(gameObject));
 
-
-            Debug.Log("Picking up Speed Boost");
-
-            PlayerController car = other.GetComponent<PlayerController>();
-            car.StartCoroutine(car.SpeedBoost());
-            //gameObject.SetActive(false);
-            Destroy(gameObject);
-
-            //speed booth effect code
+            // disappearing & reappearing code is in SpeedBoost IEnumerator in PlayerController
         }
     }
 }
