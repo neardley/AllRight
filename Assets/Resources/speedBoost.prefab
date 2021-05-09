@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8977061962703446433}
   - component: {fileID: 7734224186428929657}
   - component: {fileID: 7734224186428929656}
+  - component: {fileID: 1234104590}
   m_Layer: 0
   m_Name: speedBoost
   m_TagString: Untagged
@@ -108,3 +109,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f42c6751ab7ef46c7bfb889cac5a3f71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1234104590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7463610526320525428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a260369b6dbb32e4eabc16c64111c057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amplitude: 0.5
+  frequency: 1
+  degreesPerSecond: 15

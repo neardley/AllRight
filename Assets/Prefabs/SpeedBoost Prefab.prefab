@@ -13,37 +13,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.033827573
   m_Center: {x: 0.00006664753, y: -0.00014712263, z: -0.0035559607}
---- !u!95 &357567249
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 486643290737298840}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8c1bbe3240fe73d42812e3f120f05682, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &357567254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 486643290737298840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56f3be28d137e89419a481221cb67da7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &721014299651502281
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -110,10 +79,10 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: fed1ea6dcd1ab954a9b126df4562086d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 77d08210df254d845885518314593544, type: 2}
+      objectReference: {fileID: 2100000, guid: 388a4d00c47f58b4dab002797f9ec45a, type: 2}
     - target: {fileID: 919132149155446097, guid: fed1ea6dcd1ab954a9b126df4562086d, type: 3}
       propertyPath: m_Name
-      value: speedBoost 1
+      value: SpeedBoost Prefab
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fed1ea6dcd1ab954a9b126df4562086d, type: 3}
