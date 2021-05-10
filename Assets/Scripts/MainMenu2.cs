@@ -179,7 +179,7 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
 
     public void OnCreateRoomButton()
     {
-        SetRandomPlayerName();
+        CheckPlayerName();
         NetworkManager.instance.CreateRoom(roomNameInput.text.ToUpper());
     }
 
@@ -188,7 +188,7 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
         if (roomNameInput.text == "") playerListText.text = "Room Name cannot be blank";
         else
         {
-            SetRandomPlayerName();
+            CheckPlayerName();
             NetworkManager.instance.JoinRoom(roomNameInput.text.ToUpper());
         }
     }
@@ -210,7 +210,7 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
     public void OnQuickStartButton()
     {
         int roomNumber = Random.Range(0, 100);
-        SetRandomPlayerName();
+        CheckPlayerName();
         startOnJoin = true;
         NetworkManager.instance.CreateRoom("Room " + roomNumber.ToString());
     }
@@ -220,8 +220,9 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
         NetworkManager.instance.JoinRandomRoom();
     }
 
-    void SetRandomPlayerName()
+    void CheckPlayerName()
     {
+        //Set random player name if blank
         if (playerNameInput.text == "")
         {
             int playerNumber = Random.Range(0, 100);

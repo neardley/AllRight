@@ -9,29 +9,33 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayerSetupPanel : MonoBehaviourPunCallbacks
 {
-    Transform readyButton, colorButtonPanel;
-    TextMeshProUGUI playerNameText;
+    Transform colorButtonPanel;
+    TextMeshProUGUI playerNameText, readyButtonText;
     Image carDisplay;
 
 
-
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        readyButton = transform.Find("ReadyButton");
+        readyButtonText = transform.Find("ReadyButton").gameObject.GetComponentInChildren<TextMeshProUGUI>();
         colorButtonPanel = transform.Find("ColorButtonPanel");
         playerNameText = transform.Find("PlayerNameText").gameObject.GetComponent<TextMeshProUGUI>();
         carDisplay = transform.Find("CarDisplay").gameObject.GetComponent<Image>();
+    }
+
+    override public void OnEnable()
+    {
+        base.OnEnable();
 
         playerNameText.text = PhotonNetwork.NickName;
         OnChangeColor("Red Blue");
         setReady(false);
+        colorButtonPanel.gameObject.SetActive(true);
+        readyButtonText.text = "Ready";
     }
 
     public void OnToggleReady()
     {
-        TextMeshProUGUI readyButtonText = readyButton.gameObject.GetComponentInChildren<TextMeshProUGUI>();
-
         if ((string)PhotonNetwork.LocalPlayer.CustomProperties["Ready"] == "true")
         {
             setReady(false);
