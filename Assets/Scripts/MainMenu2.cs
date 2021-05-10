@@ -180,7 +180,7 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
     public void OnCreateRoomButton()
     {
         SetRandomPlayerName();
-        NetworkManager.instance.CreateRoom(roomNameInput.text);
+        NetworkManager.instance.CreateRoom(roomNameInput.text.ToUpper());
     }
 
     public void OnJoinRoomButton()
@@ -189,7 +189,7 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
         else
         {
             SetRandomPlayerName();
-            NetworkManager.instance.JoinRoom(roomNameInput.text);
+            NetworkManager.instance.JoinRoom(roomNameInput.text.ToUpper());
         }
     }
 
