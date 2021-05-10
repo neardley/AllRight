@@ -1263,6 +1263,7 @@ GameObject:
   - component: {fileID: 9127121842523169509}
   - component: {fileID: 2192889941687693072}
   - component: {fileID: 6533503882351720203}
+  - component: {fileID: 3787048788765935802}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: PlayerSphere
@@ -1375,6 +1376,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+--- !u!114 &3787048788765935802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5861971706508139035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 416b7f9862f4c3643ad9f7eb0dccfd54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lap: 1
+  j: -1
+  hasWon: 0
+  gotHalf: 0
+  player: {fileID: 0}
+  finish: {fileID: 0}
+  checkpoints: []
+  checkList: 
+  resetLastCP:
+    m_Name: Reset Last CP
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 91a165b2-91ac-472d-b7f6-ee941b5667b7
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: cdbed1a4-2dba-4056-9d83-56c31b4e95f0
+      m_Path: <Keyboard>/r
+      m_Interactions: Press
+      m_Processors: 
+      m_Groups: 
+      m_Action: Reset Last CP
+      m_Flags: 0
 --- !u!1 &5897170775189115248
 GameObject:
   m_ObjectHideFlags: 0
