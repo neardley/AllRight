@@ -59,6 +59,7 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
     public string GameSceneName = "Game";
 
     bool startOnJoin;
+    private Vector3 logoPos;
 
     void Start()
     {
@@ -91,10 +92,13 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
         PhotonNetwork.SetPlayerCustomProperties(hash);
 
         sfx = gameObject.AddComponent<AudioSource>();
+
+        logoPos = allRightLogo.transform.position;
     }
 
     private void Update() {
         sfx.volume = SFXVolume;
+        allRightLogo.transform.position = logoPos + Vector3.up * 5 * Mathf.Sin(Time.realtimeSinceStartup * 2);
     }
 
     public override void OnConnectedToMaster()
