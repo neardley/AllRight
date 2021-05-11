@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 sphere.drag = 0.1f;
-                sphere.AddForce(Vector3.up * -gravityForce * 100);
+                sphere.AddForce(Vector3.up * -gravityForce * 500);
             }
 
             transform.position = sphere.transform.position - new Vector3(0, 1f, 0);
@@ -228,10 +228,10 @@ public class PlayerController : MonoBehaviour
     {
         if (photonView.IsMine)
         {
-            speed += 9;
+            speed += 7;
             speedBoostObj.SetActive(false);
             yield return new WaitForSeconds(8f);
-            speed -= 9;
+            speed -= 7;
             speedBoostObj.SetActive(true);
         }
     }
