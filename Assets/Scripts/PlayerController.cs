@@ -182,7 +182,6 @@ public class PlayerController : MonoBehaviour
     void OnOpenMenu()
     {
         Debug.Log("Toggle Menu");
-        Debug.Log("MenuPanel active? " + menuPanel.activeInHierarchy);
         
         if (menuPanel.activeInHierarchy) menuPanel.SetActive(false);
         else menuPanel.SetActive(true);

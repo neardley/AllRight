@@ -17,6 +17,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
             Leave Room
             Start Game
             Quick Start
+            Exit Game
 
         TextMeshPro Input fields:
             Player Name
@@ -45,9 +46,14 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
     public Transform roomPanel;
     public Button leaveRoomButton;
     public Button startGameButton;
+    public Button exitGameButton;
     public TextMeshProUGUI playerListText;
     int readyCount = 0;
 
+    [Header("ConfirmExit")]
+    public Transform exitPanel;
+    public Button YesButton;
+    public Button NoButton;
 
     List<MenuPlayerDisplay> networkPlayerDisplays;
 
@@ -74,6 +80,9 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
         startGameButton.onClick.AddListener(OnStartGameButton);
         quickStartButton.onClick.AddListener(OnQuickStartButton);
         leaveRoomButton.onClick.AddListener(OnLeaveRoomButton);
+        exitGameButton.onClick.AddListener(OnExitGameButton);
+        YesButton.onClick.AddListener(OnYesButton);
+        NoButton.onClick.AddListener(OnNoButton);
         playerNameInput.onValueChanged.AddListener(delegate { OnPlayerNameChange(); });
 
         //get refs to player display panels and sort list
@@ -86,7 +95,14 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
         hash.Add("Color", "red blue");
         PhotonNetwork.SetPlayerCustomProperties(hash);
     }
-
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (exitPanel.gameObject.activeInHierarchy) exitPanel.gameObject.SetActive(false);
+            else exitPanel.gameObject.SetActive(true);
+        }
+    }
     public override void OnConnectedToMaster()
     {
         createRoomButton.interactable = true;
@@ -218,6 +234,21 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
     public void OnJoinRandomButton()
     {
         NetworkManager.instance.JoinRandomRoom();
+    }
+
+    public void OnExitGameButton()
+    {
+        exitPanel.gameObject.SetActive(true);
+    }
+
+    public void OnYesButton()
+    {
+        Application.Quit();
+    }
+
+    public void OnNoButton()
+    {
+        exitPanel.gameObject.SetActive(false);
     }
 
     void SetRandomPlayerName()
