@@ -30,12 +30,13 @@ public class PlayerController : MonoBehaviour
 
 
     public Rigidbody sphere;
-    public float forwardAccel = 8f, reverseAccel = 4f, gravityForce = 10f;
+    public float forwardAccel = 8f, reverseAccel = 4f, gravityForce = 10f, dragOnGround = 3f;
     private bool grounded;
 
     public LayerMask whatIsGround;
-    public float groundRayLength = 0.5f;
+    public float groundRayLength = 0.2f;
     public Transform groundRayPoint;
+
     GameObject menuPanel;
 
 
@@ -78,20 +79,39 @@ public class PlayerController : MonoBehaviour
     {
         if (photonView.IsMine)
         {
-            if (throttleAmount != 0)
+            grounded = false;
+            RaycastHit hit;
+            if(Physics.Raycast(groundRayPoint.position, -transform.up, out hit, groundRayLength, whatIsGround))
             {
-                sphere.AddForce(transform.forward * speed * throttleAmount * -3000);
+                grounded = true;
+                //transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
             }
 
-            if (turnAmount != 0)
+            if (grounded)
             {
-                if (throttleAmount == 0 || throttleAmount > 0)
-                    dir = 1;
-                else
-                    dir = -1;
+                sphere.drag = dragOnGround;
 
-                transform.Rotate(0f, turnSpeed * turnAmount * dir, 0f);
+                if (throttleAmount != 0)
+                {
+                    sphere.AddForce(transform.forward * speed * throttleAmount * -3000);
+                }
+
+                if (turnAmount != 0)
+                {
+                    if (throttleAmount == 0 || throttleAmount > 0)
+                        dir = 1;
+                    else
+                        dir = -1;
+
+                    transform.Rotate(0f, turnSpeed * turnAmount * dir, 0f);
+                }
             }
+            else
+            {
+                sphere.drag = 0.1f;
+                sphere.AddForce(Vector3.up * -gravityForce * 100);
+            }
+
             transform.position = sphere.transform.position - new Vector3(0, 1f, 0);
         }
     }
@@ -210,7 +230,7 @@ public class PlayerController : MonoBehaviour
         {
             speed += 9;
             speedBoostObj.SetActive(false);
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(8f);
             speed -= 9;
             speedBoostObj.SetActive(true);
         }

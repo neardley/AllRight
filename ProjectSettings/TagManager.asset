@@ -7,11 +7,12 @@ TagManager:
   - Check
   - FnshLine
   - PlayerSphere
+  - FinishLine
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - 
