@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        /*menuPanel = FindObjectOfType<GameMenu>(true).gameObject;*/
+        menuPanel = FindObjectOfType<GameMenu>(true).gameObject;
         sphere = gameObject.GetComponentInChildren<Rigidbody>();
         sphere.transform.parent = null;
     }
@@ -182,8 +182,10 @@ public class PlayerController : MonoBehaviour
     void OnOpenMenu()
     {
         Debug.Log("Toggle Menu");
-/*        if (menuPanel.activeInHierarchy) menuPanel.SetActive(false);
-        else menuPanel.SetActive(true);*/
+        Debug.Log("MenuPanel active? " + menuPanel.activeInHierarchy);
+        
+        if (menuPanel.activeInHierarchy) menuPanel.SetActive(false);
+        else menuPanel.SetActive(true);
     }
 
     public void Flip()

@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Personal/Phoebe's Scenes/LevelSelect.unity
     guid: 3a33cd35cc015e940b2f057ea7a839f7
+  - enabled: 1
+    path: Assets/Scenes/Personal/Phoebe's Scenes/Pause-Quit.unity
+    guid: 62e43c16d0106c84699f5e9b7a24e36e
   m_configObjects: {}

@@ -12,4 +12,9 @@ public class GameMenu : MonoBehaviour
         PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene("MainMenu");
     }
+
+    public void OnReturnButton()
+    {
+        FindObjectOfType<GameMenu>(true).gameObject.SetActive(false);
+    }
 }
