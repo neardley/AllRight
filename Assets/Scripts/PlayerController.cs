@@ -46,7 +46,10 @@ public class PlayerController : MonoBehaviour
         photonPlayer = player;
         id = player.ActorNumber;
 
-        if (!photonView.IsMine) sphere.isKinematic = true;
+        if (!photonView.IsMine) {
+            sphere.isKinematic = true;
+            sphere.GetComponent<Checkpoint>().enabled = false;
+        }
 
         PlayerManager.instance.players.Add(this);
 
