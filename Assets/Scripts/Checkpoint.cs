@@ -8,7 +8,7 @@ public class Checkpoint : MonoBehaviour
     public int lap = 1;
     public int j = -1;
     public bool hasWon, gotHalf;
-    public GameObject player, finish, endScene;
+    public GameObject player, finish, endScene, credits;
     public GameObject[] checkpoints;
     public List<bool> checkList;
     public InputAction resetLastCP;
@@ -22,6 +22,7 @@ public class Checkpoint : MonoBehaviour
         checkpoints = GameObject.FindGameObjectsWithTag("Check");
         finish = GameObject.FindGameObjectWithTag("FinishLine");
         endScene = GameObject.FindGameObjectWithTag("EndScene");
+        credits = GameObject.FindGameObjectWithTag("Credits");
         endScene.SetActive(false);
         checkList = new List<bool>();
         foreach (GameObject checkpoint in checkpoints)

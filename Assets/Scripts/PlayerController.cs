@@ -235,4 +235,5 @@ public class PlayerController : MonoBehaviour
             speedBoostObj.SetActive(true);
         }
     }
+
 }
