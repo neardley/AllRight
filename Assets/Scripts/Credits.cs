@@ -22,6 +22,7 @@ public class Credits : MonoBehaviour
 
     public void runCredits()
     {
+        Debug.Log("credits!");
         //change to correct canvas and start animation
         creditsRoll.SetActive(true);
         endScene.SetActive(false);
@@ -32,6 +33,7 @@ public class Credits : MonoBehaviour
     {
         yield return new WaitForSeconds(20);
         creditsRoll.SetActive(false);
+        PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene("MainMenu");
     }
 

@@ -67,15 +67,8 @@ public class Checkpoint : MonoBehaviour
         }
         if (lap == 3) {
             hasWon = true;
-        }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        if (hasWon == true) {
             Debug.Log("You have won!");
             endScene.SetActive(true);
         }
-        
     }
 }
