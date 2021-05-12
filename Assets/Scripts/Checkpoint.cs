@@ -24,6 +24,7 @@ public class Checkpoint : MonoBehaviour
         endScene = GameObject.FindGameObjectWithTag("EndScene");
         credits = GameObject.FindGameObjectWithTag("Credits");
         endScene.SetActive(false);
+        credits.SetActive(false);
         checkList = new List<bool>();
         foreach (GameObject checkpoint in checkpoints)
         {
