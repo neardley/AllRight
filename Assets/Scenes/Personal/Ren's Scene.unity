@@ -698,6 +698,10 @@ PrefabInstance:
       propertyPath: m_text
       value: 2nd Place
       objectReference: {fileID: 0}
+    - target: {fileID: 8275813417724871476, guid: 864a10ccb7742c14f992f1772de9eea3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8489282950637110832, guid: 864a10ccb7742c14f992f1772de9eea3, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
