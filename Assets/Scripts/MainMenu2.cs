@@ -93,12 +93,12 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
 
         sfx = gameObject.AddComponent<AudioSource>();
 
-        logoPos = allRightLogo.transform.position;
+        logoPos = allRightLogo.transform.localPosition;
     }
 
     private void Update() {
         sfx.volume = SFXVolume;
-        allRightLogo.transform.position = logoPos + Vector3.up * 5 * Mathf.Sin(Time.realtimeSinceStartup * 2);
+        allRightLogo.transform.localPosition = logoPos + Vector3.up * 5 * Mathf.Sin(Time.realtimeSinceStartup * 2);
     }
 
     public override void OnConnectedToMaster()
