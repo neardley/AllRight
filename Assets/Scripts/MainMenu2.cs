@@ -95,6 +95,7 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
         hash.Add("Color", "red blue");
         PhotonNetwork.SetPlayerCustomProperties(hash);
     }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -103,6 +104,7 @@ public class MainMenu2 : MonoBehaviourPunCallbacks
             else exitPanel.gameObject.SetActive(true);
         }
     }
+
     public override void OnConnectedToMaster()
     {
         createRoomButton.interactable = true;
