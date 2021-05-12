@@ -1397,6 +1397,7 @@ MonoBehaviour:
   player: {fileID: 0}
   finish: {fileID: 0}
   endScene: {fileID: 0}
+  credits: {fileID: 0}
   checkpoints: []
   checkList: 
   resetLastCP:
